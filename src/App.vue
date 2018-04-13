@@ -16,6 +16,7 @@
       <div class="app__content" >
         <nav class="">
           <router-link to="/dashboard" class="active">Dashboard</router-link>
+          <router-link to="/interviews" class="active">Interviews</router-link>
         </nav>
         <div class="uk-section-small uk-width-1-1 outlet-section">
 
@@ -75,7 +76,6 @@ header {
   background: #fff;
   border-bottom: 2px solid #e8e8e8;
   height: 70px;
-  width: 100%;
   display: flex;
   align-items: center;
   padding: 10px 0 5px 10px

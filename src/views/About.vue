@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-card uk-card-default uk-width-1-1@m">
+  <div class="uk-card uk-card-default uk-width-1-1@m" id="detail">
     <div class="uk-card-header">
       <div class="uk-grid-small uk-flex-middle" uk-grid>
         <div>
@@ -50,6 +50,10 @@
   @Component({})
   export default class About extends Vue {
 
+      constructor(){
+          super();
+          moment.locale('es');
+      }
 
 
       key: string = 'AIzaSyBR166UPVG8dk4kQRn7dI9revtfAz8RqhM';
@@ -59,6 +63,12 @@
       address: any = {
           neighborhood: "",
           city: ""
+      };
+      bounds: any = {
+          bound_north: "",
+          bound_east: "",
+          bound_south: "",
+          bound_west: ""
       };
 
       created(){
@@ -96,7 +106,7 @@
               .then(data => {
                   console.log(data);
                   this.user = data;
-                  this.user.date = moment(data.date).format('MMMM Do YYYY, h:mm:ss a');
+                  this.user.date = moment(Date.parse(data.date)).format('MMMM Do YYYY, h:mm:ss a');
                   this.getLocation(data.cp);
               });
       }
@@ -118,10 +128,6 @@
 
           let lat = this.location[0].geometry.location.lat,
               lng = this.location[0].geometry.location.lng,
-              bound_north = this.location[0].geometry.bounds.northeast.lat,
-              bound_east = this.location[0].geometry.bounds.northeast.lng,
-              bound_south = this.location[0].geometry.bounds.southwest.lat,
-              bound_west = this.location[0].geometry.bounds.southwest.lng,
               MapOptions: any = {
                   zoom: 13,
                   center: {lat: lat, lng: lng},
@@ -129,6 +135,21 @@
               };
 
           let map = new google.maps.Map(document.getElementById('map'), MapOptions);
+
+          if(this.location[0].geometry.bounds){
+            this.bounds.bound_north = this.location[0].geometry.bounds.northeast.lat;
+            this.bounds.bound_east = this.location[0].geometry.bounds.northeast.lng;
+            this.bounds.bound_south = this.location[0].geometry.bounds.southwest.lat;
+            this.bounds.bound_west = this.location[0].geometry.bounds.southwest.lng;
+          }else{
+              this.bounds.bound_north = this.location[0].geometry.viewport.northeast.lat;
+              this.bounds.bound_east = this.location[0].geometry.viewport.northeast.lng;
+              this.bounds.bound_south = this.location[0].geometry.viewport.southwest.lat;
+              this.bounds.bound_west = this.location[0].geometry.viewport.southwest.lng;
+          }
+
+          console.log(this.bounds.bound_north);
+
 
           let rectangle = new google.maps.Rectangle({
               strokeColor: '#00B7FF',
@@ -138,10 +159,10 @@
               fillOpacity: 0.25,
               map: map,
               bounds: {
-                  north: bound_north,
-                  south: bound_south,
-                  east: bound_east,
-                  west: bound_west
+                  north: this.bounds.bound_north,
+                  south: this.bounds.bound_south,
+                  east: this.bounds.bound_east,
+                  west: this.bounds.bound_west
               }
           });
 
@@ -150,3 +171,13 @@
   }
 
 </script>
+
+<style>
+  #detail .score{
+    padding: 5px 15px;
+  }
+  #detail .text-lead{
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+</style>

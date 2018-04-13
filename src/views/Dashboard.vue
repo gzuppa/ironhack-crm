@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="dashboard">
         <div class="uk-margin filters uk-padding-small uk-margin-remove-bottom">
 
             <div class="uk-flex-between uk-grid-small uk-flex-middle" uk-grid>
@@ -30,19 +30,19 @@
                 </div>
 
                 <div class="uk-flex-center uk-flex-middle uk-flex uk-width-1-4">
-                                    <span class="navigate uk-display-inline-block"
-                                          v-on:click="previousPage()"
-                                          v-if="page !== 1"
-                                          uk-icon="icon: chevron-left; ratio: 2">
-                                    </span>
+                    <span class="navigate uk-display-inline-block"
+                          v-on:click="previousPage()"
+                          v-if="page !== 1"
+                          uk-icon="icon: chevron-left; ratio: 2">
+                    </span>
                     <div class="uk-display-inline-block uk-width-1-3 uk-text-center">
                         <input class="uk-input uk-text-center" type="text" v-model="page" @keydown.enter="getPage(page)">
                         <span>de {{pages}} páginas</span>
                     </div>
                     <span class="navigate"
-                          v-on:click="NextPage()"
-                          v-if="page !== pages"
-                          uk-icon="icon: chevron-right; ratio: 2">
+                      v-on:click="NextPage()"
+                      v-if="page !== pages"
+                      uk-icon="icon: chevron-right; ratio: 2">
                     </span>
                 </div>
 
@@ -58,32 +58,40 @@
         </div>
 
 
-        <table class="uk-table uk-table-middle uk-table-divider uk-text-center uk-margin-remove-top">
-            <thead>
-            <tr class="">
-                <th class="uk-width-small">Nombre</th>
-                <th>Correo</th>
-                <th>Télefono</th>
-                <th>Tipo</th>
-                <th>Score</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="user in users">
-                <td>{{user.name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.tel}}</td>
-                <td>{{user.kindOfUser}}</td>
-                <td v-bind:class="{'uk-alert-success': user.score === 'A' , 'uk-alert-warning': user.score === 'B', 'uk-alert-danger': user.score === 'C' }" class="">{{user.score}}</td>
-                <td>
-                    <a :href="'/detail/'+user._id">
-                        <span uk-icon="icon:pencil"></span>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-middle uk-table-divider uk-text-center uk-margin-remove-top">
+                <thead>
+                <tr class="">
+                    <th><input class="uk-checkbox" type="checkbox"></th>
+                    <th class="uk-width-small">Nombre</th>
+                    <th>Correo</th>
+                    <th>Télefono</th>
+                    <th>Tipo</th>
+                    <th>Score</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="user in users">
+                    <td><input class="uk-checkbox" type="checkbox"></td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.tel}}</td>
+                    <td>{{user.kindOfUser}}</td>
+                    <td v-bind:class="{'uk-alert-success': user.score === 'A' , 'uk-alert-warning': user.score === 'B', 'uk-alert-danger': user.score === 'C' }" class="">{{user.score}}</td>
+                    <td>
+                        <input type="text" class="uk-input">
+                    </td>
+                    <td>
+                        <a :href="'/detail/'+user._id">
+                            <span uk-icon="icon:pencil"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <!--<ul class="uk-pagination uk-flex-center" uk-margin>
             <li v-bind:class="{'uk-disabled': page === 1}"><a v-on:click="previousPage()"><span uk-pagination-previous></span> Previous</a></li>
@@ -202,3 +210,9 @@
 
 
 </script>
+
+<style>
+    #dashboard table thead th{
+        text-align: center !important;
+    }
+</style>

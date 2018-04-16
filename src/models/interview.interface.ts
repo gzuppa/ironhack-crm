@@ -1,4 +1,4 @@
-export interface Interview {
+export default interface Interview {
     name: string,
     type: string,
     lounge?: number,

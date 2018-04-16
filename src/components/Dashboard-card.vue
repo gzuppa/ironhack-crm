@@ -2,33 +2,33 @@
     <div :class="getWidthClass(column)">
         <div class="uk-card uk-card-default uk-animation-scale-up">
             <div class="uk-card-header uk-padding-small">
-                <div class="uk-card-badge uk-label" :class="{'tecnica': true, 'interview': interview.type === 'interview'}">Técnica</div>
-                <div class="uk-grid-small uk-flex-middle uk-width-3-4" uk-grid>
+                <div class="uk-card-badge uk-label" :class="{'tecnica': true, 'interview': interview.type === 'interview'}">{{interview.type}}</div>
+                <div class="uk-grid-small uk-flex-middle uk-width-1-2" uk-grid>
                     <div>
-                        <h3 class="uk-margin-remove-bottom">Entrevista 3</h3>
+                        <h3 class="uk-margin-remove-bottom">{{interview.name}}</h3>
                     </div>
                 </div>
             </div>
             <div class="uk-card-body uk-padding-small">
                 <div class="uk-grid-small uk-child-width-1-2@m uk-child-width-1-2@s uk-text-center" uk-grid>
                     <div>
-                        <h4 class="uk-margin-remove-bottom">5</h4>
+                        <h4 class="uk-margin-remove-bottom">{{interview.lounge}}</h4>
                         <p class="uk-text-meta uk-margin-remove-top">Salas</p>
                     </div>
 
                     <div>
-                        <h4 class="uk-margin-remove-bottom">600</h4>
+                        <h4 class="uk-margin-remove-bottom">{{interview.applicants}}</h4>
                         <p class="uk-text-meta uk-margin-remove-top">Aplicantes</p>
                     </div>
 
                     <div>
-                        <h4 class="uk-margin-remove-bottom">abril 23º 2018</h4>
-                        <p class="uk-text-meta uk-margin-remove-top">Fecha de termino</p>
+                        <h4 class="uk-margin-remove-bottom">{{moment(interview.initial_date)}}</h4>
+                        <p class="uk-text-meta uk-margin-remove-top">Fecha de Inicio</p>
                     </div>
 
                     <div>
-                        <h4 class="uk-margin-remove-bottom">abril 3º 2018</h4>
-                        <p class="uk-text-meta uk-margin-remove-top">Fecha de Inicio</p>
+                        <h4 class="uk-margin-remove-bottom">{{moment(interview.final_date)}}</h4>
+                        <p class="uk-text-meta uk-margin-remove-top">Fecha de termino</p>
                     </div>
 
                 </div>
@@ -41,11 +41,22 @@
 
     import Vue from 'vue';
     import {Component, Prop} from 'vue-property-decorator';
+    import Interview from '../models/interview.interface';
+    import moment from 'moment';
 
     @Component({})
     export default class DashboardCard extends Vue{
         @Prop() private column!: string;
-        @Prop() private interview!: any;
+        @Prop() private interview: Interview;
+
+        constructor(){
+            super();
+            moment.locale('es');
+        }
+
+        moment(data: string){
+            return moment(data).format("dddd, MMMM Do YYYY")
+        }
 
         getWidthClass(column: string){
             return "uk-width-1-"+this.column;

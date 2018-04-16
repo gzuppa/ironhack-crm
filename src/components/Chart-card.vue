@@ -10,17 +10,18 @@
 
     import * as Chart from 'chart.js';
     import Vue from 'vue';
-    import {Component} from 'vue-property-decorator';
+    import {Component, Prop} from 'vue-property-decorator';
 
     @Component({})
     export default class ChartCard extends Vue {
 
+        @Prop() private labels: any[];
+        @Prop() private data: any[];
+
         chartConfig:any = {
             type: 'doughnut',
             data: {
-                labels: ["Entrevista 1", "Entrevista 2", "Entrevista 3"],
                 datasets: [{
-                    data: [12, 19, 3],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -48,6 +49,11 @@
                 }
             }
         };
+
+        created(){
+            this.chartConfig.data.labels = this.labels;
+            this.chartConfig.data.datasets[0].data = this.data;
+        }
 
         mounted(){
             let ctx = this.$refs['usersChart'].getContext('2d');

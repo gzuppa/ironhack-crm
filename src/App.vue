@@ -17,6 +17,7 @@
         <nav class="">
           <router-link to="/dashboard" class="active">Dashboard</router-link>
           <router-link to="/interviews" class="active">Interviews</router-link>
+          <router-link to="/users" class="active">Users</router-link>
         </nav>
         <div class="uk-section-small uk-width-1-1 outlet-section">
 
@@ -105,5 +106,9 @@ header {
 }
 .navigate{
   cursor: pointer;
+}
+
+.uk-card-badge{
+  top: 8%;
 }
 </style>

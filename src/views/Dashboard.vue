@@ -64,8 +64,12 @@
 
         getChartData(){
             this.interviews.map(interview=>{
-                this.labels.push(interview.name);
-                this.chart_data.push(interview.applicants);
+                if(this.labels.indexOf(interview.type) === -1) {
+                    this.labels.push(interview.type);
+                    this.chart_data.push(interview.applicants);
+                    return;
+                }
+                this.chart_data[this.labels.indexOf(interview.type)] = this.chart_data[this.labels.indexOf(interview.type)] += interview.applicants;
             });
         }
 

@@ -6,27 +6,10 @@
             <NewInterview class=""></NewInterview>
         </div>
 
-        <div class="uk-margin-top uk-overflow-auto">
-            <table class="uk-table uk-table-small uk-table-divider uk-table-middle uk-table-center">
-                <thead>
-                <tr>
-                    <th>No. Sala</th>
-                    <th>Participantes</th>
-                    <th>Lugares</th>
-                    <th>Fecha</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>30</td>
-                    <td>30</td>
-                    <td>abril 3º 2018, 7:52:46 pm</td>
-                    <td><button class="uk-button uk-button-default">Ver Sala</button></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="" uk-grid>
+
+            <DashboardCard column="3" v-for="interview in interviews" :interview="interview"></DashboardCard>
+
         </div>
 
     </div>
@@ -37,13 +20,36 @@
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
     import NewInterview from '@/components/New-interview.vue';
+    import DashboardCard from '../components/Dashboard-card.vue';
+    import * as moment from 'moment';
 
     @Component({
         components: {
             NewInterview,
+            DashboardCard
         },
     })
     export default class Interviews extends Vue{
+
+        interviews = [
+            {
+                name: "Entrevista técnica 1",
+                type: 'technique',
+                lounge: 20,
+                applicants: 620,
+                initial_date: "Mon Oct 13 2018 11:13:00 GMT-0500 (CDT)",
+                final_date: "Mon Oct 15 2018 11:13:00 GMT-0500 (CDT)"
+            }
+        ];
+
+        constructor(){
+            super();
+            moment.locale('es');
+        }
+
+        moment(data: string){
+            return moment(data).format("dddd, MMMM Do YYYY")
+        }
 
     }
 </script>

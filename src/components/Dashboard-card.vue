@@ -5,7 +5,9 @@
                 <div class="uk-card-badge uk-label" :class="{'tecnica': true, 'interview': interview.type === 'interview'}">{{interview.type}}</div>
                 <div class="uk-grid-small uk-flex-middle uk-width-1-2" uk-grid>
                     <div>
-                        <h3 class="uk-margin-remove-bottom">{{interview.name}}</h3>
+                        <router-link to="/interviews/loungelist">
+                            <h3 class="uk-margin-remove-bottom">{{interview.name}}</h3>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -72,6 +74,10 @@
     }
     .interview{
         background: #FF5252;
+    }
+
+    a{
+        text-decoration: none;
     }
 
 </style>

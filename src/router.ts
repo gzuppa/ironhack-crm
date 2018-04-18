@@ -5,6 +5,9 @@ import About from './views/About.vue'
 import Dashboard from './views/Dashboard.vue'
 import Interviews from './views/Interviews.vue';
 import UsersList from './views/UsersList.vue';
+import Login from './views/Login.vue';
+import LoungeList from './views/Lounge-list.vue';
+import LoungeDetail from './views/Lounge-detail.vue';
 
 Vue.use(Router);
 
@@ -13,7 +16,13 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      redirect: '/login'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
     },
     {
       path: '/dashboard',
@@ -32,8 +41,15 @@ export default new Router({
     },
     {
       path: '/interviews',
-      name: 'interviews',
       component: Interviews
+    },
+    {
+      path: '/interviews/loungelist',
+      component: LoungeList,
+    },
+    {
+        path: '/interviews/loungelist/:id',
+        component: LoungeDetail
     }
   ],
     mode: 'history'

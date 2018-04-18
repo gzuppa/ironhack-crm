@@ -1,0 +1,71 @@
+<template>
+
+    <div>
+        <h2>Detalle de la sala</h2>
+
+        <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-middle uk-table-divider uk-margin-remove-top">
+                <thead>
+                <tr class="">
+                    <th class="">Name</th>
+                    <th>Status</th>
+                    <th class="uk-width-small">Anwers (#)</th>
+                    <th class="uk-width-medium">Comment</th>
+                    <th>Score</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="user in users">
+                    <td>{{user.name}}</td>
+                    <td>
+                        <select class="uk-select">
+                            <option value="" disabled selected>Status</option>
+                            <option>Aprovado</option>
+                            <option>Rechazado</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="uk-input">
+                    </td>
+                    <td>
+                        <textarea class="uk-textarea" rows="1" placeholder="Comment"></textarea>
+                    </td>
+                    <td v-bind:class="['uk-text-center' ,{'uk-alert-success': user.score === 'A' , 'uk-alert-warning': user.score === 'B', 'uk-alert-danger': user.score === 'C' }]" class="">{{user.score}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</template>
+
+<script lang="ts">
+
+    import Vue from 'vue';
+    import {Component} from 'vue-property-decorator';
+    import {appService} from '../services/app.service';
+
+    @Component({})
+    export default class LoungeDetail extends Vue{
+
+        users: any[] = [];
+
+        created(){
+            this.getUsers();
+        }
+
+        getUsers(){
+            appService.getUsers()
+                .then(response => response.json())
+                .then(data=>{
+                    this.users = data.docs;
+                })
+        }
+
+    }
+</script>
+
+<style scoped>
+
+</style>

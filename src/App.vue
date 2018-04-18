@@ -22,7 +22,7 @@
         <div class="uk-section-small uk-width-1-1 outlet-section">
 
           <div class="uk-container">
-            <router-view/>
+            <router-view></router-view>
           </div>
         </div>
       </div>
@@ -110,5 +110,30 @@ header {
 
 .uk-card-badge{
   top: 8%;
+}
+
+.date__input-container .date-input input{
+  max-width: 100%;
+  width: 100%;
+  border: 0 none;
+  padding: 0 10px;
+  background: #fff;
+  color: #666;
+  border: 1px solid #e5e5e5;
+  transition: .2s ease-in-out;
+  transition-property: color,background-color,border;
+  height: 40px;
+  vertical-align: middle;
+  display: inline-block;
+  -webkit-appearance: none;
+  overflow: visible;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 0;
+  font: inherit;
+}
+
+.vdatetime-popup{
+  top: 80%;
 }
 </style>

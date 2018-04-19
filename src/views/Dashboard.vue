@@ -4,7 +4,7 @@
         <div class="uk-child-width-1-1@s uk-grid-medium uk-grid-match" uk-grid>
 
             <ChartCard :datasets="doughnut_datasets" :labels="labels" :type="'doughnut'" :msg="'Candidatos por tipo de entrevista'"></ChartCard>
-            <ChartCard :datasets="line_datasets" :labels="labels_line" :type="'line'" :msg="'Aplicantes por cursos'"></ChartCard>
+            <ChartCard :datasets="line_datasets" :labels="labels_line" :type="'line'" :msg="'Aplicantes por cursos mensuales'"></ChartCard>
             <DashboardCard column="3" v-for="interview in interviews" :interview="interview"></DashboardCard>
 
 
@@ -19,6 +19,7 @@
     import DashboardCard from '../components/Dashboard-card.vue';
     import ChartCard from '../components/Chart-card.vue';
     import Interview from '../models/interview.interface';
+    import {appService} from "../services/app.service";
 
     @Component({
         components:{
@@ -27,6 +28,8 @@
         }
     })
     export default class Dashboard extends Vue{
+
+        applicantsByCourse: any[];
 
         // doughnut
         labels: string[] = [];
@@ -64,11 +67,49 @@
             }
         ];
 
+        beforeCreate(){
+            this.applicantsByCourse = appService.getApplicantsByCourse();
+        }
+
         created(){
+            this.getLineChartData();
             this.getChartData();
         }
 
         getLineChartData(){
+            
+            let datasets = [
+                {
+                    data: [],
+                    label: "UX/UI",
+                    borderColor: "#7B1FA2",
+                    backgroundColor: '#7B1FA2',
+                    fill: false
+                },
+                {
+                    data: [],
+                    label: "part-time",
+                    borderColor: "#FFEB3B",
+                    backgroundColor: '#FFEB3B',
+                    fill: false
+                },
+                {
+                    data: [],
+                    label: "full-time",
+                    borderColor: "#32c3ff",
+                    backgroundColor: '#32c3ff',
+                    fill: false
+                }
+            ];
+            
+            
+            this.applicantsByCourse.map(data=>{
+                data.courses.map((course,i)=>{
+                    datasets[i].data.push(course.quantity);
+                })
+            });
+
+            this.line_datasets = datasets;
 
         }
 

@@ -3,75 +3,207 @@ class AppService{
     course_data: any[] = [
         {
             month: 'January',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 34
+                },
+                {
+                    course: 'Part time',
+                    quantity: 16
+                },
+                {
+                    course: 'Full time',
+                    quantity: 84
+                }
+            ]
         },
         {
             month: 'February',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 26
+                },
+                {
+                    course: 'Part time',
+                    quantity: 67
+                },
+                {
+                    course: 'Full time',
+                    quantity: 34
+                }
+            ]
         },
         {
             month: 'March',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 6
+                },
+                {
+                    course: 'Part time',
+                    quantity: 1
+                },
+                {
+                    course: 'Full time',
+                    quantity: 54
+                }
+            ]
         },
         {
             month: 'April',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 23
+                },
+                {
+                    course: 'Part time',
+                    quantity: 16
+                },
+                {
+                    course: 'Full time',
+                    quantity: 14
+                }
+            ]
         },
         {
             month: 'May',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 23
+                },
+                {
+                    course: 'Part time',
+                    quantity: 17
+                },
+                {
+                    course: 'Full time',
+                    quantity: 37
+                }
+            ]
         },
         {
             month: 'June',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 23
+                },
+                {
+                    course: 'Part time',
+                    quantity: 82
+                },
+                {
+                    course: 'Full time',
+                    quantity: 44
+                }
+            ]
         },
         {
             month: 'July',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 3
+                },
+                {
+                    course: 'Part time',
+                    quantity: 93
+                },
+                {
+                    course: 'Full time',
+                    quantity: 54
+                }
+            ]
         },
         {
             month: 'August',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 23
+                },
+                {
+                    course: 'Part time',
+                    quantity: 1
+                },
+                {
+                    course: 'Full time',
+                    quantity: 34
+                }
+            ]
         },
         {
             month: 'September',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 23
+                },
+                {
+                    course: 'Part time',
+                    quantity: 12
+                },
+                {
+                    course: 'Full time',
+                    quantity: 34
+                }
+            ]
         },
         {
             month: 'October',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 243
+                },
+                {
+                    course: 'Part time',
+                    quantity: 22
+                },
+                {
+                    course: 'Full time',
+                    quantity: 84
+                }
+            ]
         },
         {
             month: 'November',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 223
+                },
+                {
+                    course: 'Part time',
+                    quantity: 152
+                },
+                {
+                    course: 'Full time',
+                    quantity: 374
+                }
+            ]
         },
         {
             month: 'December',
-            ux_ui: 23,
-            part_time: 12,
-            full_time: 34
+            courses: [
+                {
+                    course: 'UX/UI',
+                    quantity: 235
+                },
+                {
+                    course: 'Part time',
+                    quantity: 312
+                },
+                {
+                    course: 'Full time',
+                    quantity: 304
+                }
+            ]
         }
     ];
 

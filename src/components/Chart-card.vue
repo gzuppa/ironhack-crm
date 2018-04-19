@@ -2,7 +2,6 @@
     <div class="uk-width-1-2">
         <div class="uk-card uk-card-default uk-animation-scale-up uk-padding-small">
             <canvas ref="usersChart" width="" height=""></canvas>
-            <canvas ref="lineChart" width="" height=""></canvas>
         </div>
     </div>
 </template>
@@ -76,9 +75,7 @@
 
         mounted(){
             let ctx = this.$refs['usersChart'].getContext('2d');
-            let line = this.$refs['lineChart'].getContext('2d');
             new Chart(ctx, this.chartConfig);
-            new Chart(line, this.lineChart);
         }
 
     }

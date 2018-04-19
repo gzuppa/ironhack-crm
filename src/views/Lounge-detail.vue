@@ -3,6 +3,15 @@
     <div>
         <h2>Detalle de la sala</h2>
 
+        <div class="uk-flex">
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+        </div>
+
         <div class="uk-overflow-auto">
             <table class="uk-table uk-table-middle uk-table-divider uk-margin-remove-top">
                 <thead>
@@ -11,7 +20,8 @@
                     <th>Status</th>
                     <th class="uk-width-small">Anwers (#)</th>
                     <th class="uk-width-medium">Comment</th>
-                    <th>Score</th>
+                    <th class="uk-width-auto">Score</th>
+                    <th class="uk-width-auto">Save</th>
 
                 </tr>
                 </thead>
@@ -31,7 +41,10 @@
                     <td>
                         <textarea class="uk-textarea" rows="1" placeholder="Comment"></textarea>
                     </td>
-                    <td v-bind:class="['uk-text-center' ,{'uk-alert-success': user.score === 'A' , 'uk-alert-warning': user.score === 'B', 'uk-alert-danger': user.score === 'C' }]" class="">{{user.score}}</td>
+                    <td v-bind:class="['uk-text-center uk-width-auto' ,{'uk-alert-success': user.score === 'A' , 'uk-alert-warning': user.score === 'B', 'uk-alert-danger': user.score === 'C' }]" class="">{{user.score}}</td>
+                    <td class="uk-text-center uk-width-auto">
+                        <span uk-icon="icon: upload"></span>
+                    </td>
                 </tr>
                 </tbody>
             </table>

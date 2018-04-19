@@ -47,7 +47,6 @@
 
     import {Component, Vue} from 'vue-property-decorator';
     import { Datetime } from 'vue-datetime';
-    import 'vue-datetime/dist/vue-datetime.css'
 
     @Component({
         components: {
@@ -63,17 +62,6 @@
 </script>
 
 <style scoped>
-
-    .btn-success{
-        background-color: limegreen;
-        color: white;
-        border: none;
-    }
-    .btn-success:hover{
-        background-color: limegreen;
-        color: white;
-        border: none;
-    }
 
     .uk-checkbox, .uk-radio{
         width: 30px;

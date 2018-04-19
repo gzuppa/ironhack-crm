@@ -4,7 +4,7 @@
         <div class="uk-child-width-1-1@s uk-grid-medium uk-grid-match" uk-grid>
 
             <ChartCard :datasets="doughnut_datasets" :labels="labels" :type="'doughnut'" :msg="'Candidatos por tipo de entrevista'"></ChartCard>
-            <ChartCard :datasets="line_datasets" :labels="labels_line" :type="'line'" :msg="'Aplicantes por cursos mensuales'"></ChartCard>
+            <ChartCard :datasets="line_datasets" :labels="labels_line" :type="'line'" :msg="'Aplicantes por curso mensuales'"></ChartCard>
             <DashboardCard column="3" v-for="interview in interviews" :interview="interview"></DashboardCard>
 
 
@@ -116,6 +116,7 @@
         getChartData(){
 
             let backgroundColor = [
+                'rgba(41,121,255, 0.2)',
                 'rgba(148,0,211, 0.2)',
                 'rgba(255,82,82, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
@@ -125,6 +126,7 @@
             ];
 
             let borderColor= [
+                'rgb(41,121,255,1)',
                 'rgba(148,0,211,1)',
                 'rgba(255,82,82, 1)',
                 'rgba(153, 102, 255, 1)',

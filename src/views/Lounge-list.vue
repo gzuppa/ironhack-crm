@@ -1,7 +1,11 @@
 <template>
 
     <div>
-        <h2>Lista de salas</h2>
+
+        <div class="uk-flex uk-flex-between">
+            <h2>Lista de salas</h2>
+            <FormModal text="Create Lounge"></FormModal>
+        </div>
 
         <div class="uk-margin-top uk-overflow-auto">
             <table class="uk-table uk-table-small uk-table-divider uk-table-middle uk-table-center">
@@ -34,8 +38,13 @@
 
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
+    import FormModal from '../components/Form-modal.vue';
 
-    @Component({})
+    @Component({
+        components: {
+            FormModal
+        }
+    })
     export default class LoungeList extends Vue {
 
         created(){

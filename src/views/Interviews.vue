@@ -3,7 +3,7 @@
     <div>
 
         <div class="uk-flex uk-flex-right">
-            <NewInterview class=""></NewInterview>
+            <FormModal text="Create Interview" :type="'interview'"></FormModal>
         </div>
 
         <div class="" uk-grid>
@@ -19,13 +19,13 @@
 <script lang="ts">
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
-    import NewInterview from '@/components/New-interview.vue';
+    import FormModal from '@/components/Form-modal.vue';
     import DashboardCard from '../components/Dashboard-card.vue';
     import * as moment from 'moment';
 
     @Component({
         components: {
-            NewInterview,
+            FormModal,
             DashboardCard
         },
     })

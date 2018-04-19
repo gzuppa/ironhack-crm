@@ -134,6 +134,6 @@ header {
 }
 
 .vdatetime-popup{
-  top: 80%;
+  top: 95%;
 }
 </style>

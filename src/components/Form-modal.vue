@@ -19,6 +19,7 @@
     import {Component, Prop} from 'vue-property-decorator';
     import NewInterview from './New-interview.vue';
     import NewLounge from './New-lounge-form.vue';
+    import NewUserForm from './New-user-form.vue';
 
     @Component({})
     export default class FormModal extends Vue{
@@ -29,7 +30,7 @@
         componentType;
 
         created(){
-            this.componentType = this.type === "interview" ? NewInterview : NewLounge;
+            this.componentType = this.type === "interview" ? NewInterview : this.type === "user" ? NewUserForm : NewLounge;
         }
 
     }

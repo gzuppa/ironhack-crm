@@ -1,6 +1,11 @@
 <template>
 
     <div id="dashboard">
+
+        <div class="uk-flex uk-flex-right">
+            <FormModal text="Create User" :type="'user'"></FormModal>
+        </div>
+
         <div class="uk-margin filters uk-padding-small uk-margin-remove-bottom">
 
             <div class="uk-flex-between uk-grid-small uk-flex-middle" uk-grid>
@@ -124,8 +129,13 @@
 
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
+    import FormModal from '@/components/Form-modal.vue';
 
-    @Component({})
+    @Component({
+        components: {
+            FormModal
+        }
+    })
     export default class UsersList extends Vue{
 
         base_paginated_url: string = 'https://iron-uber.herokuapp.com/paginated';
@@ -165,6 +175,7 @@
                     this.loading = false;
                     if(data.docs){
                         this.users = data.docs;
+                        console.log(this.users);
                         this.total = data.total;
                         this.pages = data.pages;
                         this.limit = data.limit;

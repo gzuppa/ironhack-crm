@@ -104,7 +104,7 @@
             
             
             this.applicantsByCourse.map(data=>{
-                data.courses.map((course,i)=>{
+                data.courses.map((course: any,i: number)=>{
                     datasets[i].data.push(course.quantity);
                 })
             });

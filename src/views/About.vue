@@ -4,39 +4,56 @@
       <div class="uk-grid-small uk-flex-middle" uk-grid>
         <div>
           <div class="uk-width-auto text-lead uk-text-center score uk-border-circle"
-               v-bind:class="{'uk-alert-success': user.score === 'A' , 'uk-alert-warning': user.score === 'B', 'uk-alert-danger': user.score === 'C' }">
-            {{user.score}}
+               v-bind:class="{'uk-alert-success': user_data.score === 'A' , 'uk-alert-warning': user_data.score === 'B', 'uk-alert-danger': user_data.score === 'C' }">
+            {{user_data.score}}
           </div>
         </div>
         <div class="uk-width-expand">
-          <h3 class="uk-card-title uk-margin-remove-bottom">{{user.name}} {{user.surName}} {{user.lastName}}</h3>
-          <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">{{user.date}}</time></p>
+          <h3 class="uk-card-title uk-margin-remove-bottom">{{user_data.name}} {{user_data.surName}} {{user_data.lastName}}</h3>
+          <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">{{user_data.date}}</time></p>
         </div>
       </div>
     </div>
     <div class="uk-card-body">
-      <div class="uk-flex uk-flex-around">
-        <div>Datos de contacto: </div>
-        <div>Email: {{user.email}}</div>
-        <div>Tel: {{user.tel}}</div>
-      </div>
-      <h5><span class="uk-text-muted">Aplicó para:</span> {{user.course}}</h5>
-      <p><span class="uk-text-muted">Razón:</span> {{user.why}}</p>
-      <p><span class="uk-text-muted">Objetivo:</span> {{user.objectives}}</p>
-      <p><span class="uk-text-muted">Skills:</span> {{user.skills}}</p>
+
+      <ul uk-switcher="animation: uk-animation-fade" uk-tab>
+        <li><a href="#">Básico</a></li>
+        <li><a href="#">Prueba técnica</a></li>
+        <li><a href="#">Entrevista personal</a></li>
+      </ul>
+
+      <ul class="uk-switcher uk-margin">
+
+        <li>
+          <DetailBasics :user="user_data"></DetailBasics>
+        </li>
+
+        <li>
+          <DetailTechnicalInterview :user="user_data"></DetailTechnicalInterview>
+        </li>
+
+        <li>
+          <DetailPersonalInterview @personal_Interview="submitPersonalInterview($event)"></DetailPersonalInterview>
+        </li>
+
+      </ul>
+
+
     </div>
-    <div class="uk-card-footer">
+
+    <div class="uk-modal-footer">
       <div class="" uk-grid>
         <div class="uk-width-2-3">
           <div class="uk-width-1-1 uk-height-large" id="map"></div>
         </div>
         <div class="uk-width-1-3">
-          <h5 class="uk-margin-small"><span class="uk-text-muted">CP:</span> {{user.cp}}</h5>
+          <h5 class="uk-margin-small"><span class="uk-text-muted">CP:</span> {{user_data.cp}}</h5>
           <h5 class="uk-margin-small"><span class="uk-text-muted">Colonia:</span> {{address.neighborhood}}</h5>
           <h5 class="uk-margin-small"><span class="uk-text-muted">Ciudad:</span> {{address.city}}</h5>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -46,8 +63,17 @@
   import {Component} from 'vue-property-decorator';
   import moment from 'moment';
   import {} from '@types/googlemaps';
+  import DetailBasics from '@/components/detail-basics.vue';
+  import DetailTechnicalInterview from '@/components/detail-technical-interview.vue';
+  import DetailPersonalInterview from '@/components/detail-personal-interview.vue';
 
-  @Component({})
+  @Component({
+      components: {
+          DetailBasics,
+          DetailTechnicalInterview,
+          DetailPersonalInterview
+      }
+  })
   export default class About extends Vue {
 
       constructor(){
@@ -55,10 +81,10 @@
           moment.locale('es');
       }
 
-
-      key: string = 'AIzaSyBR166UPVG8dk4kQRn7dI9revtfAz8RqhM';
       id: string = "";
-      user: any = {};
+      user_data: any = {};
+      key: string = 'AIzaSyBR166UPVG8dk4kQRn7dI9revtfAz8RqhM';
+
       location: any = {};
       address: any = {
           neighborhood: "",
@@ -74,19 +100,11 @@
       created(){
 
           this.getId();
-        /*let googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBR166UPVG8dk4kQRn7dI9revtfAz8RqhM';
 
-          if (!document.querySelectorAll(`[src="${googleMapsUrl}"]`).length) {
-              document.body.appendChild(Object.assign(
-                  document.createElement('script'), {
-                      type: 'text/javascript',
-                      src: googleMapsUrl,
-                      onload: () => this.drawMap()
-                  }));
-          } else {
-              this.drawMap();
-          }*/
+      }
 
+      submitPersonalInterview(interview: any){
+          console.log("personal", interview);
       }
 
       getId(){
@@ -104,9 +122,8 @@
                   return response.json()
               })
               .then(data => {
-                  console.log(data);
-                  this.user = data;
-                  this.user.date = moment(Date.parse(data.date)).format('MMMM Do YYYY, h:mm:ss a');
+                  this.user_data = data;
+                  this.user_data.date = moment(Date.parse(data.date)).format('MMMM Do YYYY, h:mm:ss a');
                   this.getLocation(data.cp);
               });
       }
@@ -116,7 +133,6 @@
           fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+cp+'+mexico&region=mx&key='+this.key)
               .then(response=> {return response.json()})
               .then(data=>{
-                  console.log(data);
                   this.location = data.results;
                   this.address.neighborhood = data.results[0].address_components[1].long_name;
                   this.address.city = data.results[0].address_components[2].long_name;
@@ -137,19 +153,16 @@
           let map = new google.maps.Map(document.getElementById('map'), MapOptions);
 
           if(this.location[0].geometry.bounds){
-            this.bounds.bound_north = this.location[0].geometry.bounds.northeast.lat;
-            this.bounds.bound_east = this.location[0].geometry.bounds.northeast.lng;
-            this.bounds.bound_south = this.location[0].geometry.bounds.southwest.lat;
-            this.bounds.bound_west = this.location[0].geometry.bounds.southwest.lng;
+              this.bounds.bound_north = this.location[0].geometry.bounds.northeast.lat;
+              this.bounds.bound_east = this.location[0].geometry.bounds.northeast.lng;
+              this.bounds.bound_south = this.location[0].geometry.bounds.southwest.lat;
+              this.bounds.bound_west = this.location[0].geometry.bounds.southwest.lng;
           }else{
               this.bounds.bound_north = this.location[0].geometry.viewport.northeast.lat;
               this.bounds.bound_east = this.location[0].geometry.viewport.northeast.lng;
               this.bounds.bound_south = this.location[0].geometry.viewport.southwest.lat;
               this.bounds.bound_west = this.location[0].geometry.viewport.southwest.lng;
           }
-
-          console.log(this.bounds.bound_north);
-
 
           let rectangle = new google.maps.Rectangle({
               strokeColor: '#00B7FF',

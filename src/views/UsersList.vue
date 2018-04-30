@@ -105,9 +105,9 @@
                         <input type="text" class="uk-input">
                     </td>
                     <td>
-                        <a :href="'/detail/'+user._id">
+                        <router-link :to="{name:'detail', params: {id:user._id}}">
                             <span uk-icon="icon:pencil"></span>
-                        </a>
+                        </router-link>
                     </td>
                 </tr>
                 </tbody>

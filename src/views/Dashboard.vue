@@ -5,7 +5,7 @@
 
             <ChartCard :datasets="doughnut_datasets" :labels="labels" :type="'doughnut'" :msg="'Candidatos por tipo de entrevista'"></ChartCard>
             <ChartCard :datasets="line_datasets" :labels="labels_line" :type="'line'" :msg="'Aplicantes por curso mensuales'"></ChartCard>
-            <DashboardCard column="3" v-for="interview in interviews" :interview="interview"></DashboardCard>
+            <DashboardCard column="3" v-for="(interview, index) in interviews" :interview="interview" :key="index"></DashboardCard>
 
 
         </div>
@@ -29,14 +29,14 @@
     })
     export default class Dashboard extends Vue{
 
-        applicantsByCourse: any[];
+        applicantsByCourse!: any[];
 
         // doughnut
         labels: string[] = [];
         doughnut_datasets: any[] = [];
 
         // line
-        line_datasets: any[];
+        line_datasets!: any[];
         labels_line = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 
@@ -105,7 +105,8 @@
             
             this.applicantsByCourse.map(data=>{
                 data.courses.map((course: any,i: number)=>{
-                    datasets[i].data.push(course.quantity);
+                    let d = datasets[i].data as any[];
+                    d.push(course.quantity);
                 })
             });
 
@@ -142,14 +143,21 @@
                 borderColor: []
             };
             this.interviews.map((interview, i)=>{
+
+                let bgColors = datasets.backgroundColor as any[];
+                let d = datasets.data as any[];
+                let borColor = datasets.borderColor as any[];
+
+                let d_result = datasets.data[this.labels.indexOf(interview.type)] as any;
+
                 if(this.labels.indexOf(interview.type) === -1) {
                     this.labels.push(interview.type);
-                    datasets.data.push(interview.applicants);
-                    datasets.backgroundColor.push(backgroundColor[i]);
-                    datasets.borderColor.push(borderColor[i]);
+                    d.push(interview.applicants);
+                    bgColors.push(backgroundColor[i]);
+                    borColor.push(borderColor[i]);
                     return;
                 }
-                datasets.data[this.labels.indexOf(interview.type)] = datasets.data[this.labels.indexOf(interview.type)] += interview.applicants;
+                d_result = d_result += interview.applicants;
             });
             this.doughnut_datasets.push(datasets);
         }

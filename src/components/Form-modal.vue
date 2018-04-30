@@ -25,9 +25,9 @@
     export default class FormModal extends Vue{
 
         @Prop() private text!: string;
-        @Prop() private type: string;
+        @Prop() private type!: string;
 
-        componentType;
+        componentType: any;
 
         created(){
             this.componentType = this.type === "interview" ? NewInterview : this.type === "user" ? NewUserForm : NewLounge;

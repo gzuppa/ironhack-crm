@@ -8,7 +8,7 @@
 
         <div class="" uk-grid>
 
-            <DashboardCard column="3" v-for="interview in interviews" :interview="interview"></DashboardCard>
+            <DashboardCard column="3" v-for="(interview, index) in interviews" :interview="interview" :key="index"></DashboardCard>
 
         </div>
 

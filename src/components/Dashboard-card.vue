@@ -49,7 +49,7 @@
     @Component({})
     export default class DashboardCard extends Vue{
         @Prop() private column!: string;
-        @Prop() private interview: Interview;
+        @Prop() private interview!: Interview;
 
         constructor(){
             super();

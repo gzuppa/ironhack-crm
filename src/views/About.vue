@@ -116,7 +116,7 @@
               body: JSON.stringify(interview)
           };
 
-          fetch(`http://localhost:3000/finalinterview/${this.id}`, options)
+          fetch(`https://iron-uber.herokuapp.com/finalinterview/${this.id}`, options)
               .then(r=>{
                   if(r.status === 200) {
                       UIkit.notification({

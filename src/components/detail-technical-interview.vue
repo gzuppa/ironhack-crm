@@ -1,22 +1,40 @@
 <template>
 
-    <div>
-        <div class="uk-width-auto text-lead uk-text-center score uk-border-circle"
-             v-bind:class="{'uk-alert-success': user.technical_score === 1 , 'uk-alert-warning': user.technical_score === 2, 'uk-alert-danger': user.technical_score === 3 }">
-            {{user.technical_score}}
+    <div >
+
+        <div class="scores" uk-grid>
+            <div class="">
+                <div class="score-container uk-text-center  uk-border-circle uk-flex uk-flex-column uk-flex-middle uk-flex-center"
+                     v-bind:class="{'uk-alert-success': user.technicalCategory === '1' , 'uk-alert-warning': user.technicalCategory === '2', 'uk-alert-danger': user.technicalCategory === '3' }">
+                    <span class="uk-display-block">{{user.technicalCategory}}</span>
+                    <span class="uk-display-block">Type Candidate</span>
+                </div>
+            </div>
+
+            <div class="" v-if="user.webScore">
+                <div class="score-container uk-text-center uk-border-circle uk-flex uk-flex-column uk-flex-center"
+                     v-bind:class="{'uk-alert-success': user.technicalCategory === '1' , 'uk-alert-warning': user.technicalCategory === '2', 'uk-alert-danger': user.technicalCategory === '3' }">
+                    <span class="uk-display-block">{{user.webScore}}</span>
+                    <span class="uk-display-block">Web Dev</span>
+                </div>
+            </div>
+
+            <div class="" v-if="user.uxScore">
+                <div class="score-container uk-text-center uk-border-circle uk-flex uk-flex-column uk-flex-center"
+                     v-bind:class="{'uk-alert-success': user.technicalCategory === '1' , 'uk-alert-warning': user.technicalCategory === '2', 'uk-alert-danger': user.technicalCategory === '3' }">
+                    <span class="uk-display-block">{{user.uxScore}}</span>
+                    <span class="uk-display-block">UX/UI</span>
+                </div>
+            </div>
+
         </div>
 
-        <div class="uk-width-auto text-lead uk-text-center score uk-border-circle"
-             v-bind:class="{'uk-alert-success': user.technical_score === 1 , 'uk-alert-warning': user.technical_score === 2, 'uk-alert-danger': user.technical_score === 3 }">
-            {{user.points}}
-        </div>
-
-        <div>
+        <div class="uk-margin-medium-top">
             <p class="uk-text-lead">
                 Why do you want to join Ironhack and what are your expectations from the bootcamp?
             </p>
             <p>
-                Para incrementar mis conocimientos con tecnologías que aun no conozco y vienen incluidas en su temario, con esto podré lograr dar un paso mas hacia mi objetivo que es una carrera completa en el mundo de la programación
+                {{user.whyTo}}
             </p>
         </div>
 
@@ -37,10 +55,25 @@
 
         @Prop() user: any;
 
+
+        created(){
+            console.log(this.user)
+        }
+
     }
 
 </script>
 
 <style scoped>
+
+    .scores .score-container > span:first-child{
+        font-size: 1.5em;
+    }
+
+    .scores .score-container{
+        height: 80px;
+        width: 80px;
+        padding: 12%;
+    }
 
 </style>

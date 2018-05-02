@@ -17,7 +17,7 @@
                             <input class="uk-search-input" type="search" placeholder="Buscar..." v-model="query.field">
                         </div>
                         <!-- Fin input search -->
-                        <div uk-form-custom="target: > * > span:first-child">
+                        <div uk-form-custom="target: > * > span:first-child" v-if="false">
                             <select v-model="query.score">
                                 <option value="" selected disabled>Score de candidato</option>
                                 <option value="all">Todos</option>
@@ -83,7 +83,7 @@
             <table class="uk-table uk-table-middle uk-table-divider uk-text-center uk-margin-remove-top">
                 <thead>
                 <tr class="">
-                    <th><input class="uk-checkbox" type="checkbox"></th>
+
                     <th class="uk-width-small">Nombre</th>
                     <th>Correo</th>
                     <th>Télefono</th>
@@ -95,14 +95,14 @@
                 </thead>
                 <tbody>
                 <tr v-for="user in users">
-                    <td><input class="uk-checkbox" type="checkbox"></td>
+
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.tel}}</td>
                     <td>{{user.kindOfUser}}</td>
                     <td v-bind:class="{'uk-alert-success': user.score === 'A' , 'uk-alert-warning': user.score === 'B', 'uk-alert-danger': user.score === 'C' }" class="">{{user.score}}</td>
                     <td>
-                        <input type="text" class="uk-input">
+                        {{user.course}}
                     </td>
                     <td>
                         <router-link :to="{name:'detail', params: {id:user._id}}">
@@ -138,7 +138,7 @@
     })
     export default class UsersList extends Vue{
 
-        base_paginated_url: string = 'https://iron-uber.herokuapp.com/paginated';
+        base_paginated_url: string = 'http://iron-uber.herokuapp.com/finalinterview';
 
         loading:boolean = true;
 
@@ -161,12 +161,13 @@
         }
 
         fetchUsers(){
-            this.fetchData('http://iron-uber.herokuapp.com/paginated');
+            this.fetchData('http://iron-uber.herokuapp.com/finalinterview');
         }
 
         fetchData(url:string){
             fetch(url,{
-                headers:{"Content-Type":"application/json"}
+                headers:{"Content-Type":"application/json"},
+                method: 'GET'
             })
                 .then(response=>{
                     return response.json()
@@ -175,7 +176,6 @@
                     this.loading = false;
                     if(data.docs){
                         this.users = data.docs;
-                        console.log(this.users);
                         this.total = data.total;
                         this.pages = data.pages;
                         this.limit = data.limit;
@@ -197,7 +197,8 @@
             }else if(this.query.score && !this.query.field){
                 url = 'https://iron-uber.herokuapp.com/filter?score='+this.query.score+'&'+'field=';
             }else{
-                url = 'https://iron-uber.herokuapp.com/filter?score='+'&'+'field='+this.query.field;
+                //url = 'https://iron-uber.herokuapp.com/filter?score='+'&'+'field='+this.query.field;
+                url= `http://iron-uber.herokuapp.com/finalinterview?name=${this.query.field}&email=${this.query.field}&lastname=${this.query.field}&surname=${this.query.field}`
             }
 
             this.fetchData(url);

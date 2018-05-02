@@ -22,7 +22,7 @@
         <li><a href="#">Entrevista personal</a></li>
       </ul>
 
-      <ul class="uk-switcher uk-margin">
+      <ul class="uk-switcher uk-margin-medium">
 
         <li>
           <DetailBasics :user="user_data"></DetailBasics>
@@ -33,7 +33,7 @@
         </li>
 
         <li>
-          <DetailPersonalInterview @personal_Interview="submitPersonalInterview($event)"></DetailPersonalInterview>
+          <DetailPersonalInterview @personal_Interview="submitPersonalInterview($event)" :user="user_data"></DetailPersonalInterview>
         </li>
 
       </ul>
@@ -66,6 +66,7 @@
   import DetailBasics from '@/components/detail-basics.vue';
   import DetailTechnicalInterview from '@/components/detail-technical-interview.vue';
   import DetailPersonalInterview from '@/components/detail-personal-interview.vue';
+  import UIkit from 'uikit';
 
   @Component({
       components: {
@@ -104,7 +105,27 @@
       }
 
       submitPersonalInterview(interview: any){
-          console.log("personal", interview);
+
+           parseInt(interview.interview_score);
+
+          let options = {
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              method: 'PATCH',
+              body: JSON.stringify(interview)
+          };
+
+          fetch(`http://localhost:3000/finalinterview/${this.id}`, options)
+              .then(r=>{
+                  if(r.status === 200) {
+                      UIkit.notification({
+                          message: "<span uk-icon='icon: check'></span> Actualizado",
+                          status: 'success',
+                          pos: 'top-center'
+                      })
+                  }
+              })
       }
 
       getId(){
@@ -185,7 +206,7 @@
 
 </script>
 
-<style>
+<style scoped>
   #detail .score{
     padding: 5px 15px;
   }

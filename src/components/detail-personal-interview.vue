@@ -1,13 +1,13 @@
 <template>
     
     <div>
-        <form @submit.prevent="$emit('personal_Interview', interview)">
+        <form @submit.prevent="$emit('personal_Interview', user)">
 
             <div class="uk-child-width-1-2@m" uk-grid>
                 <div>
                     <label class="uk-form-label" for="user-personal-score">Tipo de candidato</label>
                     <div class="uk-form-controls">
-                        <select class="uk-select" id="user-personal-score" v-model="interview.score">
+                        <select class="uk-select" id="user-personal-score" v-model="user.interview_score">
                             <option value="" disabled selected>selecciona calificación</option>
                             <option value="1">1 Candidato a beca completa</option>
                             <option value="2">2 Candidato a beca</option>
@@ -19,7 +19,7 @@
                 <div>
                     <label class="uk-form-label" for="user-extracomments">Comentarios del evaluador</label>
                     <div class="uk-form-controls">
-                        <textarea class="uk-textarea" name="comments" id="" cols="30" rows="5" id="user-extracomments" v-model="interview.comment"></textarea>
+                        <textarea class="uk-textarea" name="comments" id="" cols="30" rows="5" id="user-extracomments" v-model="user.interviewer_comment"></textarea>
                     </div>
                 </div>
             </div>
@@ -36,14 +36,20 @@
 <script lang="ts">
 
     import Vue from 'vue';
-    import {Component} from 'vue-property-decorator';
+    import {Component, Prop} from 'vue-property-decorator';
 
     @Component
     export default class DetailPersonalInterview extends Vue {
 
+        @Prop() user: any;
+
         interview: any = {
-            score: "",
-            comment: ""
+            interview_score: "",
+            interviewer_comment: ""
+        };
+
+        created(){
+
         }
 
     }

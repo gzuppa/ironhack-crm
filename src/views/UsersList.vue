@@ -83,22 +83,23 @@
             <table class="uk-table uk-table-middle uk-table-divider uk-text-center uk-margin-remove-top">
                 <thead>
                 <tr class="">
-
+                    <th class="uk-width-auto">Evaluado</th>
                     <th class="uk-width-small">Nombre</th>
                     <th>Correo</th>
-                    <th>Télefono</th>
+                    <!--<th>Télefono</th>-->
                     <th>Tipo</th>
                     <th>Score</th>
-                    <th></th>
+                    <th>Curso</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="user in users">
 
+                    <td class="icon-container"><span class="icon uk-border-circle" uk-icon='icon: check; ratio:1.3' v-if="user.interview_score"></span></td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{user.tel}}</td>
+                    <!--<td>{{user.tel}}</td>-->
                     <td>{{user.kindOfUser}}</td>
                     <td v-bind:class="{'uk-alert-success': user.score === 'A' , 'uk-alert-warning': user.score === 'B', 'uk-alert-danger': user.score === 'C' }" class="">{{user.score}}</td>
                     <td>
@@ -138,7 +139,7 @@
     })
     export default class UsersList extends Vue{
 
-        base_paginated_url: string = 'http://iron-uber.herokuapp.com/finalinterview';
+        base_paginated_url: string = 'https://iron-uber.herokuapp.com/finalinterview';
 
         loading:boolean = true;
 
@@ -161,7 +162,7 @@
         }
 
         fetchUsers(){
-            this.fetchData('http://iron-uber.herokuapp.com/finalinterview');
+            this.fetchData('https://iron-uber.herokuapp.com/finalinterview');
         }
 
         fetchData(url:string){
@@ -198,7 +199,7 @@
                 url = 'https://iron-uber.herokuapp.com/filter?score='+this.query.score+'&'+'field=';
             }else{
                 //url = 'https://iron-uber.herokuapp.com/filter?score='+'&'+'field='+this.query.field;
-                url= `http://iron-uber.herokuapp.com/finalinterview?name=${this.query.field}&email=${this.query.field}&lastname=${this.query.field}&surname=${this.query.field}`
+                url= `https://iron-uber.herokuapp.com/finalinterview?name=${this.query.field}&email=${this.query.field}&lastname=${this.query.field}&surname=${this.query.field}`
             }
 
             this.fetchData(url);
@@ -243,6 +244,20 @@
 </script>
 
 <style scoped>
+
+    th{
+        text-align: center;
+    }
+
+    td.icon-container{
+        color: #32d296;
+    }
+    
+    span.icon{
+        border: 1px solid #32d296;
+        height: 26px;
+        width: 26px;
+    }
 
     .sk-cube-grid {
         width: 100px;

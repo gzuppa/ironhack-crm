@@ -35,19 +35,23 @@
                     </form>
                 </div>
 
+                <div>
+                    <button class="uk-button uk-button-default" @click="reset" :disabled="!searching">Reset</button>
+                </div>
+
                 <div class="uk-flex-center uk-flex-middle uk-flex uk-width-1-4">
                     <span class="navigate uk-display-inline-block"
-                          v-on:click="previousPage()"
-                          v-if="page !== 1"
+                          @click="previousPage()"
+                          v-if="page > 1"
                           uk-icon="icon: chevron-left; ratio: 2">
                     </span>
                     <div class="uk-display-inline-block uk-width-1-3 uk-text-center">
                         <input class="uk-input uk-text-center" type="text" v-model="page" @keydown.enter="getPage(page)">
                         <span>de {{pages}} páginas</span>
                     </div>
-                    <span class="navigate"
-                          v-on:click="NextPage()"
-                          v-if="page !== pages"
+                    <span class="navigate uk-display-inline-block"
+                          @click="NextPage()"
+                          v-if="page < pages"
                           uk-icon="icon: chevron-right; ratio: 2">
                     </span>
                 </div>
@@ -78,8 +82,12 @@
             </div>
         </div>
 
+        <div class="uk-alert-primary" v-if="!loading && (users.length < 1)" uk-alert>
+            <p>No se encontraron usuarios con estos criterios</p>
+        </div>
 
-        <div class="uk-overflow-auto" v-if="!loading">
+
+        <div class="uk-overflow-auto" v-if="!loading && (users.length > 0)">
             <table class="uk-table uk-table-middle uk-table-divider uk-text-center uk-margin-remove-top">
                 <thead>
                 <tr class="">
@@ -143,6 +151,8 @@
 
         loading:boolean = true;
 
+        searching: boolean = false;
+
         users = [];
         query = {
             score: "",
@@ -159,6 +169,12 @@
         created(){
             this.fetchUsers();
             //this.getpagesArray();
+        }
+
+        reset(){
+            this.searching = false;
+            this.query.field = "";
+            this.fetchUsers();
         }
 
         fetchUsers(){
@@ -188,6 +204,8 @@
 
         searchUser(){
 
+            this.searching = true;
+
             if(this.query.score.toString() === "all") {
                 location.reload();
                 return;
@@ -208,13 +226,30 @@
 
         previousPage(){
             this.page--;
-            let url = this.base_paginated_url + '?page=' + this.page;
+
+            let url;
+            if(!this.searching){
+                url = this.base_paginated_url + '?page=' + this.page;
+                this.fetchData(url);
+                return;
+            }
+
+            url= `https://iron-uber.herokuapp.com/finalinterview?page=${this.page}&name=${this.query.field}&email=${this.query.field}&lastname=${this.query.field}&surname=${this.query.field}`;
+
             this.fetchData(url)
         }
 
         NextPage(){
             this.page++;
-            let url = this.base_paginated_url + '?page=' + this.page;
+            let url;
+            if(!this.searching){
+                url = this.base_paginated_url + '?page=' + this.page;
+                this.fetchData(url);
+                return;
+            }
+
+            url= `https://iron-uber.herokuapp.com/finalinterview?page=${this.page}&name=${this.query.field}&email=${this.query.field}&lastname=${this.query.field}&surname=${this.query.field}`;
+
             this.fetchData(url)
         }
 

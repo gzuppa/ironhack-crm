@@ -54,13 +54,14 @@
                 </div>
 
                 <div>
-                    <label class="uk-form-label" for="user-course">Curso</label>
+                    <label class="uk-form-label" for="user-course">Interesado en:</label>
                     <div class="uk-form-controls">
-                        <select class="uk-select" id="user-course">
-                            <option value="" selected>course</option>
-                            <option>Web dev full-time</option>
-                            <option>Web dev part-time </option>
-                            <option>UX/UI</option>
+                        <select class="uk-select" id="user-course" >
+                            <option value="" disabled selected>Selecciona curso de interes</option>
+                            <option value="Desarrollo Web Tiempo Parcial">Desarrollo Web Tiempo Parcial</option>
+                            <option value="Desarrollo Web Tiempo Completo">Desarrollo Web Tiempo Completo</option>
+                            <option value="Diseño UX/UI">Diseño UX/UI</option>
+                            <option value="Diseño UX/UI Tiempo Parcial">Diseño UX/UI Tiempo Parcial</option>
                         </select>
                     </div>
                 </div>
